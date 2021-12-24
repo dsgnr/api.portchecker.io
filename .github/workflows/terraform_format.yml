@@ -1,0 +1,27 @@
+name: 'Terraform'
+
+on:
+  push:
+    branches:
+    - devel
+  pull_request:
+
+jobs:
+  terraform_format:
+    name: 'Terraform Format'
+    runs-on: ubuntu-latest
+    environment: production
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+
+    - name: Terraform Format
+      run: terraform fmt -check terraform
